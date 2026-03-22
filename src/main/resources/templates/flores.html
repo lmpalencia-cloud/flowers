@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flores Amarillas 🌼</title>
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --yellow: #fce700;
+    --yellow-dark: #e0c800;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    min-height: 100vh;
+    background: radial-gradient(circle at top, #020024, #000);
+    overflow: hidden;
+}
+
+/* 🌙 fondo */
+.night::before {
+    content: "";
+    position: fixed;
+    width: 200%;
+    height: 200%;
+    background-image: radial-gradient(white 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: stars 60s linear infinite;
+    opacity: 0.2;
+}
+
+@keyframes stars {
+    from { transform: translateY(0); }
+    to { transform: translateY(-500px); }
+}
+
+/* 💬 mensaje */
+.static-message {
+    position: absolute;
+    top: 10%;
+    width: 100%;
+    text-align: center;
+}
+
+.static-message h1 {
+    color: var(--yellow);
+    font-size: 3rem;
+    text-shadow: 0 0 20px var(--yellow);
+}
+
+.static-message p {
+    color: white;
+    opacity: 0.8;
+}
+
+/* 🌼 contenedor */
+.flowers {
+    position: relative;
+    width: 100%;
+}
+
+/* 🌼 flor */
+.flower {
+    position: absolute;
+    bottom: 0;
+    animation: sway 4s ease-in-out infinite;
+}
+
+.flower-inner {
+    transform: scale(var(--scale, 1));
+}
+
+@keyframes sway {
+    0%,100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
+}
+
+/* 🌿 tallo */
+.stem {
+    width: 4px;
+    height: 0;
+    background: linear-gradient(to top, #0f0, #4caf50);
+    margin: auto;
+    animation: grow 2s ease forwards;
+}
+
+@keyframes grow {
+    to { height: 140px; }
+}
+
+/* 🌼 cabeza */
+.bloom {
+    position: absolute;
+    bottom: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* 🌻 centro */
+.center {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    background: orange;
+    border-radius: 50%;
+    top: -11px;
+    left: -11px;
+    z-index: 2;
+    box-shadow: 0 0 10px orange;
+}
+
+/* 🌼 pétalos CORREGIDOS */
+.petal {
+    position: absolute;
+    width: 20px;
+    height: 40px;
+    background: linear-gradient(to top, var(--yellow), var(--yellow-dark));
+    border-radius: 60% 60% 40% 40%;
+    top: -40px;
+    left: -10px;
+    transform-origin: bottom center;
+    opacity: 0;
+
+    border: 1.5px solid #d4b800;
+
+    box-shadow: 
+        inset 0 0 5px rgba(255,255,255,0.5),
+        0 0 5px rgba(252,231,0,0.4);
+
+    animation: bloom 1s ease forwards;
+}
+
+/* 🔥 ROTACIÓN CORRECTA */
+.p1  { --rot: 0deg; animation-delay: 1s; }
+.p2  { --rot: 30deg; animation-delay: 1.1s; }
+.p3  { --rot: 60deg; animation-delay: 1.2s; }
+.p4  { --rot: 90deg; animation-delay: 1.3s; }
+.p5  { --rot: 120deg; animation-delay: 1.4s; }
+.p6  { --rot: 150deg; animation-delay: 1.5s; }
+.p7  { --rot: 180deg; animation-delay: 1.6s; }
+.p8  { --rot: 210deg; animation-delay: 1.7s; }
+.p9  { --rot: 240deg; animation-delay: 1.8s; }
+.p10 { --rot: 270deg; animation-delay: 1.9s; }
+.p11 { --rot: 300deg; animation-delay: 2s; }
+.p12 { --rot: 330deg; animation-delay: 2.1s; }
+
+/* 🔥 FIX FINAL */
+@keyframes bloom {
+    from {
+        opacity: 0;
+        transform: scale(0) rotate(var(--rot));
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(var(--rot));
+    }
+}
+
+/* ✨ partículas */
+.particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: var(--yellow);
+    border-radius: 50%;
+    animation: float 6s linear infinite;
+    opacity: 0.5;
+}
+
+@keyframes float {
+    from { transform: translateY(0); opacity: 0; }
+    to { transform: translateY(-600px); opacity: 1; }
+}
+
+/* 💛 corazones */
+.heart {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: var(--yellow);
+    transform: rotate(45deg);
+    animation: floatHeart 7s linear infinite;
+}
+
+.heart::before,
+.heart::after {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: var(--yellow);
+    border-radius: 50%;
+}
+
+.heart::before { top: -7px; }
+.heart::after { left: -7px; }
+
+@keyframes floatHeart {
+    from { transform: translateY(0) rotate(45deg); opacity: 0; }
+    to { transform: translateY(-600px) rotate(45deg); opacity: 1; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="night"></div>
+
+<div class="static-message">
+    <h1>Para Ti 🌼</h1>
+    <p>Porque iluminas todo a tu paso 💛</p>
+</div>
+
+<div class="flowers" id="flowers"></div>
+
+<!-- partículas -->
+<div class="particle" style="left:10%"></div>
+<div class="particle" style="left:30%; animation-delay:2s;"></div>
+<div class="particle" style="left:60%; animation-delay:4s;"></div>
+
+<!-- corazones -->
+<div class="heart" style="left:20%"></div>
+<div class="heart" style="left:50%; animation-delay:2s;"></div>
+<div class="heart" style="left:80%; animation-delay:4s;"></div>
+
+<script>
+const container = document.getElementById("flowers");
+
+for (let i = 0; i < 100; i++) {
+
+    const flower = document.createElement("div");
+    flower.classList.add("flower");
+
+    const left = Math.random() * 95;
+    const scale = (Math.random() * 0.5 + 0.6).toFixed(2);
+    const duration = (Math.random() * 3 + 3).toFixed(2);
+
+    flower.style.left = left + "%";
+    flower.style.animationDuration = duration + "s";
+
+    flower.innerHTML = `
+        <div class="flower-inner" style="--scale:${scale}">
+            <div class="stem"></div>
+            <div class="bloom">
+                <div class="center"></div>
+                ${Array.from({length:12}, (_,i)=>`<div class="petal p${i+1}"></div>`).join("")}
+            </div>
+        </div>
+    `;
+
+    setTimeout(() => {
+        container.appendChild(flower);
+    }, i * 80);
+}
+</script>
+
+</body>
+</html>
